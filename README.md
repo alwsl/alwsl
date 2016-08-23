@@ -1,2 +1,2 @@
 # alwsl
-Install archlinux as the WSL (Windows Subsystem for Linux) host.
+Install archlinux as the host distro in WSL (Windows Subsystem for Linux).
