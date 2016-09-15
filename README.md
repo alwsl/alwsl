@@ -2,7 +2,7 @@
 
 ### **This is an unstable dev preview. To track the process of the first release, please visit the [0.6 project](https://github.com/turbo/alwsl/projects/1).**
 
-*I've only switched to branch to inform new visitors of the purpose of this repo. This is still undocumented.*
+*I've only switched the branch to inform new visitors of the purpose of this repo. This is still undocumented.*
 
 > **NOTE:** This batchfile works, but it is a terrible, bodged, undocumented monstrosity (proof-of-concept). If you don't want to break anything, wait for the first release. Which is ofc *not* a batchfile.
 
