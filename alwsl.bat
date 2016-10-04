@@ -243,7 +243,7 @@ if "%~1" == "install" (
 
 	mkdir "%localappdata%\lxss\snapshots"
 
-	%info% "Renaming shortut."
+	%info% "Renaming shortcut."
 	del "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Bash on Ubuntu on Windows.lnk" > nul
 	bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://cdn.turbo.run/alwsl/archlinux.ico" "%localappdata%\lxss\archlinux.ico"
 	call :create_shortcut "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\"
