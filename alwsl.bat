@@ -201,7 +201,7 @@ if "%~1" == "install" (
 	bash -c "apt-get -qq update >/dev/null ; apt-get -qq --force-yes install squashfs-tools >/dev/null"
 
 	%info% "Downloading alwsl rootfs (this might take a while)..."
-	bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://cdn.turbo.run/alwsl/alwsl.sfs" "%~dp0alwsl.sfs"
+	bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://cdn.turbo.run/alwsl/bootstrap/alwsl.sfs" "%~dp0alwsl.sfs"
 	If Not Exist "%~dp0alwsl.sfs" (
 		%fail% "Err, download failed. Try again (and check your firewall/AV settings)."
 		goto :eof
