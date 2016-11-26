@@ -319,7 +319,7 @@ goto :eof
 
 :waitforexit
 if exist "%localappdata%\lxss\temp" (
-	call :waitforexit
+	goto :waitforexit
 )
 goto :eof
 
