@@ -10,29 +10,7 @@ REM - add user switching
 
 
 if "%~1" == "update" (
-	%info% "Checking for updates..."
-	bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://cdn.turbo.run/alwsl/version" "%~dp0v_remote"
-	if not exist "%~dp0v_remote" (
-		%fail% "Failed to retrieve version from server. Nothing was done."
-		goto :eof
-	)
-	bash -c "cp /usr/share/version ./v_local"
-
-	set /p "v_remote="<"%~dp0v_remote"
-	set /p "v_local="<"%~dp0v_local"
-	del "v_*" > nul
-
-	if !v_remote! == !v_local! (
-		%info% "Your alwsl base system is up to date (!v_remote! = !v_local!)."
-		goto :eof
-	)
-
-	%info% "Update is available (!v_local! => !v_remote!)."
-	choice /M "Proceed with update? Hint: If you don't know what this does, don't."
-	if errorlevel 2 goto :eof
-
 	%fail% "Not yet implemented"
-
 	goto :eof
 )
 
@@ -201,34 +179,10 @@ if "%~1" == "install" (
 	bash -c "apt-get -qq update >/dev/null ; apt-get -qq --force-yes install squashfs-tools >/dev/null"
 
 	%info% "Downloading alwsl rootfs (this might take a while)..."
-	bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://cdn.turbo.run/alwsl/alwsl.sfs" "%~dp0alwsl.sfs"
+	bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://antiquant.com/alwsl/alwsl.sfs" "%~dp0alwsl.sfs"
 	If Not Exist "%~dp0alwsl.sfs" (
 		%fail% "Err, download failed. Try again (and check your firewall/AV settings)."
 		goto :eof
-	)
-
-	%info% "Downloading checksum for this image."
-	bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://cdn.turbo.run/alwsl/checksum" "%~dp0checksum"
-	set /p "remote="<"%~dp0checksum"
-	set "hash="
-
-	If Not Exist "%~dp0checksum" (
-		%fail% "Err, checksum download failed. Try again (and check your firewall/AV settings)."
-		%warn% "You can force the build, but it might brick the current lxss and you have to start over!"
-		choice /M "Do you want to force the build"
-		if errorlevel 2 goto :eof
-	) else (
-		FOR /F "tokens=* skip=1" %%F IN ('certutil -hashfile "%~dp0alwsl.sfs"') DO if not defined hash set "hash=%%F"
-		set hash=%hash: =%
-
-		if not "%hash%" == "%remote%" (
-			%fail% "Checksums do not match. This is most likely caused by a corrupted download :-/ ..."
-			%warn% "You can force the build, but it might brick the current lxss and you have to start over!"
-			choice /M "Do you want to force the build"
-			if errorlevel 2 goto :eof
-		) else (
-			%info% "Checksums match :-)"
-		)
 	)
 
 	call :overwritefs "%~dp0alwsl.sfs"
