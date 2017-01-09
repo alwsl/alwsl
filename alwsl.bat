@@ -199,7 +199,7 @@ if "%~1" == "install" (
 
 	%info% "Renaming shortcut."
 	del "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Bash on Ubuntu on Windows.lnk" > nul
-	bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://cdn.turbo.run/alwsl/archlinux.ico" "%localappdata%\lxss\archlinux.ico"
+	bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://antiquant.com/alwsl/archlinux.ico" "%localappdata%\lxss\archlinux.ico"
 	call :create_shortcut "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\"
 	del /Q "%~dp0*.sfs" 2> nul
 	del /Q "%~dp0checksum" 2> nul
