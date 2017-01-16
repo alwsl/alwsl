@@ -257,7 +257,7 @@ for /l %%a in (0,1,25) do (
 )
 set mountpoint=%mountpoint%%wrfs%
 %info% "Copying rootfs to temporary extraction destination."
-bash -c "cd && mkdir -p rootfs-temp && cd rootfs-temp && cp %mountpoint% ."
+bash -c "cd && mkdir -p rootfs-temp && cd rootfs-temp && cp \"%mountpoint%\" ."
 %info% "Unsquashing rootfs."
 bash -c "cd && cd rootfs-temp && unsquashfs -f -x -d . %~n1.sfs 2>/dev/null"
 goto :eof
