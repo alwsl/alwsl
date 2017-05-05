@@ -169,7 +169,11 @@ if "%~1" == "install" (
 	call :purge
 
 	%info% "Installing base lxss fs from trusty server image. This will take A WHILE."
-	lxrun /install /y
+	lxrun /install /y  || (
+		%warn% "Problem with lxrun, make sure that WSL is installed."
+		%info% "To install run:"
+		%info% "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux"
+    )
 	if not exist "%localappdata%\lxss\root\.bashrc" (
 		%fail% "lxrun failed to install Microsoft's rootfs. Try to restart alwsl again. If this"
 		%fail% "error persists, check your firewall and AV. If all fails, open a GH issue."
