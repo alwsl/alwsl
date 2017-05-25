@@ -169,7 +169,12 @@ if "%~1" == "install" (
 	call :purge
 
 	%info% "Installing base lxss fs from trusty server image. This will take A WHILE."
-	lxrun /install /y
+	lxrun /install /y  || (
+		%warn% "Problem with MWSL!"
+		%info% "Make sure, that it is installed and enabled in windows components..."
+		%info% "Try this following command in PowerShell:"
+		%info% "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux"
+	)
 	if not exist "%localappdata%\lxss\root\.bashrc" (
 		%fail% "lxrun failed to install Microsoft's rootfs. Try to restart alwsl again. If this"
 		%fail% "error persists, check your firewall and AV. If all fails, open a GH issue."
@@ -199,7 +204,8 @@ if "%~1" == "install" (
 
 	%info% "Renaming shortcut."
 	del "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Bash on Ubuntu on Windows.lnk" > nul
-	bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://antiquant.com/alwsl/archlinux.ico" "%localappdata%\lxss\archlinux.ico"
+	:: TODO : Replace internet resource via embed icon file? I'am just leave it here for maintain developers. Special thanks for a guys from github!
+	bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://www.shareicon.net/download/2015/09/16/101867_archlinux.ico" "%localappdata%\lxss\archlinux.ico"
 	call :create_shortcut "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\"
 	del /Q "%~dp0*.sfs" 2> nul
 	del /Q "%~dp0checksum" 2> nul
@@ -279,7 +285,7 @@ goto :eof
 
 :purge
 del /Q "%~dp0*.sfs" 2> nul
-del /Q "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\archlinux.lnk" 2> nul
+del /Q "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ArchLinux.lnk" 2> nul
 del /Q "%~dp0checksum" 2> nul
 lxrun /uninstall /full /y > nul
 goto :eof
@@ -341,7 +347,7 @@ echo ZQAAAAAAAAAAADkAAAAxU1BTsRZtRK2NcEinSEAupD14jB0AAABoAAAAAEgAAABS
 echo 7Al1AAAAAAAAUB8AAAAAAAAAAAAAAAAAAAAA
 echo -----END CERTIFICATE-----
 )>file.tmp
-certutil -decode file.tmp "%~1archlinux.lnk" >nul
+certutil -decode file.tmp "%~1ArchLinux.lnk" >nul
 del file.tmp
 goto :eof
 :: =====================================================================================================
