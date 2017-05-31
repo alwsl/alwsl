@@ -205,7 +205,7 @@ if "%~1" == "install" (
 	%info% "Renaming shortcut."
 	del "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Bash on Ubuntu on Windows.lnk" > nul
 	:: TODO : Replace internet resource via embed icon file? I'am just leave it here for maintain developers. Special thanks for a guys from github!
-	bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://www.shareicon.net/download/2015/09/16/101867_archlinux.ico" "%localappdata%\lxss\archlinux.ico"
+	bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://cdn.xorable.org/archlinux.ico" "%localappdata%\lxss\archlinux.ico"
 	call :create_shortcut "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\"
 	del /Q "%~dp0*.sfs" 2> nul
 	del /Q "%~dp0checksum" 2> nul
