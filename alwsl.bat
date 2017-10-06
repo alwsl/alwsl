@@ -168,7 +168,7 @@ if "%~1" == "install" (
 	%info% "Cleaning old files."
 	call :purge
 
-	%info% "Installing base lxss fs from trusty server image. This will take A WHILE."
+	%info% "Installing base lxss fs from xenial server image. This will take A WHILE."
 	lxrun /install /y  || (
 		%warn% "Problem with MWSL!"
 		%info% "Make sure, that it is installed and enabled in windows components..."
